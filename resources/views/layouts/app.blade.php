@@ -5,18 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>@yield('title', config('app.name', 'Laravel'))</title>
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <!-- Custom CSS -->
+        @vite(['resources/css/app.css'])
     </head>
     <body class="bg-light">
         <!-- Top Header -->
@@ -45,6 +44,12 @@
                         </svg>
                         <span>Projects</span>
                     </a>
+                    <a href="{{ route('towers.index') }}" class="nav-link d-flex align-items-center gap-3 px-3 py-2 text-dark text-decoration-none rounded sidebar-link" data-section="towers">
+                        <svg class="w-5 h-5" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                        <span>Towers</span>
+                    </a>
                 </nav>
             </aside>
 
@@ -57,67 +62,7 @@
                     </div>
                 @endif
 
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="h2 fw-bold text-dark m-0">Projects</h1>
-                    <a href="{{ route('projects.create') }}" class="btn btn-primary px-4 py-2">
-                        Create Project
-                    </a>
-                </div>
-
-                <div class="card">
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th class="table-header px-4 py-3">ID</th>
-                                        <th class="table-header px-4 py-3">Title</th>
-                                        <th class="table-header px-4 py-3">Sub Title</th>
-                                        <th class="table-header px-4 py-3">Project ID</th>
-                                        <th class="table-header px-4 py-3">Location</th>
-                                        <th class="table-header px-4 py-3">Voltage</th>
-                                        <th class="table-header px-4 py-3">Status</th>
-                                        <th class="table-header px-4 py-3">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($projects ?? [] as $project)
-                                        <tr>
-                                            <td class="table-cell px-4 py-3">{{ $project->id }}</td>
-                                            <td class="table-cell px-4 py-3">{{ $project->title }}</td>
-                                            <td class="table-cell px-4 py-3">{{ $project->sub_title }}</td>
-                                            <td class="table-cell px-4 py-3">{{ $project->project_id }}</td>
-                                            <td class="table-cell px-4 py-3">{{ $project->location }}</td>
-                                            <td class="table-cell px-4 py-3">{{ $project->voltage }}</td>
-                                            <td class="table-cell px-4 py-3">{{ $project->status }}</td>
-                                            <td class="table-cell px-4 py-3">
-                                                <div class="btn-group" role="group">
-                                                    <a href="{{ route('projects.show', $project) }}" class="btn btn-sm btn-outline-primary">Show</a>
-                                                    <a href="{{ route('projects.edit', $project) }}" class="btn btn-sm btn-outline-success">Edit</a>
-                                                    <form action="{{ route('projects.destroy', $project) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this project?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="8" class="text-center text-muted py-4">No projects found.</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                @if(($projects ?? null) && $projects->hasPages())
-                    <div class="mt-4">
-                        {{ $projects->links() }}
-                    </div>
-                @endif
+                @yield('content')
             </main>
         </div>
 
@@ -132,6 +77,8 @@
                     document.querySelector('[data-section="projects"]').classList.add('active', 'bg-light');
                 } else if (currentPath === '/home') {
                     document.querySelector('[data-section="home"]').classList.add('active', 'bg-light');
+                } else if (currentPath.startsWith('/towers')) {
+                    document.querySelector('[data-section="towers"]').classList.add('active', 'bg-light');
                 }
 
                 // Handle sidebar navigation
@@ -149,5 +96,8 @@
 
         <!-- Bootstrap JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+        <!-- Custom JavaScript -->
+        @vite(['resources/js/app.js'])
     </body>
 </html>

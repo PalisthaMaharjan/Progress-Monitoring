@@ -41,7 +41,7 @@ class ProjectController extends Controller
 
         Project::create($validated);
 
-        return redirect()->route('projects.index')->with('success', 'Project created successfully.');
+        return redirect()->route('projects.index')->with('success', 'Project created successfully!');
     }
 
     /**
@@ -66,17 +66,17 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $validated = $request->validate([
-            'title' => ['nullable', 'string', 'max:255'],
-            'sub_title' => ['nullable', 'string', 'max:255'],
-            'project_id' => ['nullable', 'string', 'max:255'],
-            'location' => ['nullable', 'string', 'max:255'],
-            'voltage' => ['nullable', 'numeric'],
-            'status' => ['nullable', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:255'],
+            'sub_title' => ['required', 'string', 'max:255'],
+            'project_id' => ['required', 'string', 'max:255'],
+            'location' => ['required', 'string', 'max:255'],
+            'voltage' => ['required', 'numeric'],
+            'status' => ['required', 'string', 'max:255'],
         ]);
 
         $project->update($validated);
 
-        return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
+        return redirect()->route('projects.index')->with('success', 'Project updated successfully!');
     }
 
     /**
@@ -86,6 +86,6 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return redirect()->route('projects.index')->with('success', 'Project deleted successfully.');
+        return redirect()->route('projects.index')->with('success', 'Project deleted successfully!');
     }
 }

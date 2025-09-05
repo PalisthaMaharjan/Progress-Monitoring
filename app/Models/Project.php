@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
 {
@@ -14,4 +15,12 @@ class Project extends Model
         'voltage',
         'status',
     ];
+
+    /**
+     * Get the towers for the project.
+     */
+    public function towers(): HasMany
+    {
+        return $this->hasMany(Tower::class);
+    }
 }

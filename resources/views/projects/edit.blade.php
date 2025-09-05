@@ -1,11 +1,31 @@
-<h1>Edit Project</h1>
+@extends('layouts.app')
 
-<form action="{{ route('projects.update', $project) }}" method="POST" style="margin-top: 16px;">
-	@csrf
-	@method('PUT')
-	@include('projects._form', ['project' => $project])
-	<div style="margin-top: 16px; display: flex; gap: 8px;">
-		<button type="submit" style="padding: 8px 12px; background: #2563eb; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Update</button>
-		<a href="{{ route('projects.index') }}" style="padding: 8px 12px; background: #6b7280; color: #fff; text-decoration: none; border-radius: 4px;">Cancel</a>
-	</div>
-</form>
+@section('title', 'Edit Project')
+
+@section('content')
+<div class="container mx-auto">
+    <div class="mb-4">
+        <h2 class="h2 fw-bold text-dark mb-2">Edit Project</h2>
+        <p class="text-muted">Update project information</p>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ route('projects.update', $project) }}" method="POST">
+                @csrf
+                @method('PUT')
+                @include('projects._form')
+
+                <div class="d-flex gap-3 mt-4">
+                    <button type="submit" class="btn btn-primary px-4 py-2">
+                        Update Project
+                    </button>
+                    <a href="{{ route('projects.index') }}" class="btn btn-secondary px-4 py-2">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
