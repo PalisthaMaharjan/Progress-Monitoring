@@ -160,7 +160,7 @@
 						</div>
 					@endforeach
 				</div>
-				<button type="button" class="btn btn-outline-primary" onclick="addTowerLeg()">Add Tower Leg</button>
+				<button type="button" class="btn btn-outline-primary" id="add-tower-leg-btn" onclick="addTowerLeg()">Add Tower Leg</button>
 			</div>
 
 			<div class="d-flex gap-2">
@@ -173,6 +173,14 @@
 
 <script>
 let legIndex = {{ $tower->legs->count() }};
+
+// Initialize button visibility on page load
+document.addEventListener('DOMContentLoaded', function() {
+	// Small delay to ensure all elements are rendered
+	setTimeout(function() {
+		updateAddButtonVisibility();
+	}, 100);
+});
 
 function addTowerLeg() {
 	const container = document.getElementById('tower-legs-container');
@@ -211,10 +219,33 @@ function addTowerLeg() {
 
 	container.appendChild(legItem);
 	legIndex++;
+	updateAddButtonVisibility();
 }
 
 function removeTowerLeg(button) {
 	button.closest('.tower-leg-item').remove();
+	updateAddButtonVisibility();
+}
+
+function updateAddButtonVisibility() {
+	const addButton = document.getElementById('add-tower-leg-btn');
+	const legItems = document.querySelectorAll('.tower-leg-item');
+	
+	console.log('Current leg count:', legItems.length); // Debug log
+	console.log('Add button found:', addButton); // Debug log
+	
+	if (!addButton) {
+		console.error('Add button not found!');
+		return;
+	}
+	
+	if (legItems.length >= 4) {
+		addButton.style.display = 'none';
+		console.log('Hiding add button'); // Debug log
+	} else {
+		addButton.style.display = 'inline-block';
+		console.log('Showing add button'); // Debug log
+	}
 }
 </script>
 @endsection

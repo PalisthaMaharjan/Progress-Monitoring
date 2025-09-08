@@ -20,7 +20,7 @@
     </head>
     <body class="bg-light">
         <!-- Top Header -->
-        <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3">
+        <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 header-navbar">
             <div class="container-fluid">
                 <h1 class="navbar-brand h1 mb-0 fw-bold text-dark">Progress Monitoring</h1>
                 <div class="navbar-nav ms-auto">

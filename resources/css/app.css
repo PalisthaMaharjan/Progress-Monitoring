@@ -124,14 +124,23 @@
         border-color: #3E3E3A;
         color: #EDEDEC;
     }
-
+/* 
     .navbar {
-        background-color: #cdcdc3 !important;
+        background-color: #006699 !important;
         border-color: #3E3E3A !important;
+    } */
+
+    .header-navbar {
+        background-color: #006699 !important;
     }
 
     .sidebar {
-        background-color: #cdcdc3 !important;
+        background-color: #006699 !important;
         border-color: #3E3E3A !important;
     }
+}
+
+
+.card-body {
+    background-color: #ccccbd !important;
 }
