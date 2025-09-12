@@ -15,23 +15,23 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+       <!-- Custom CSS -->
+       <link href="{{ asset('app.css') }}" rel="stylesheet">
     </head>
     <body class="bg-light">
         <!-- Top Header -->
         <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 header-navbar">
             <div class="container-fluid">
-                <h1 class="navbar-brand h1 mb-0 fw-bold text-dark">Progress Monitoring</h1>
+                <h1 class="navbar-brand h1 mb-0 fw-bold text-white">Progress Monitoring</h1>
                 <div class="navbar-nav ms-auto">
-                    <span class="navbar-text text-muted">{{ date('M d, Y') }}</span>
+                    <span class="navbar-text text-white">{{ date('M d, Y') }}</span>
                 </div>
             </div>
         </header>
 
         <div class="d-flex vh-100">
             <!-- Fixed Sidebar -->
-            <aside class="sidebar w-25 bg-white border-end p-4">
+            <aside class="sidebar main-sidebar w-25 border-end p-4">
                 <nav class="nav flex-column">
                     <a href="{{ route('home') }}" class="nav-link d-flex align-items-center gap-3 px-3 py-2 text-dark text-decoration-none rounded sidebar-link" data-section="home">
                         <svg class="w-5 h-5" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -44,13 +44,26 @@
 							<td class="table-cell px-4 py-3">{{ $project->voltage }}</td>
 							<td class="table-cell px-4 py-3">{{ $project->status }}</td>
 							<td class="table-cell px-4 py-3">
-								<div class="btn-group" role="group">
-									<a href="{{ route('projects.show', $project) }}" class="btn btn-sm btn-outline-primary">Show</a>
-									<a href="{{ route('projects.edit', $project) }}" class="btn btn-sm btn-outline-success">Edit</a>
+								<div class="d-flex gap-2">
+									<a href="{{ route('projects.show', $project) }}" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="View Project Details">
+										<svg class="w-4 h-4" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+										</svg>
+									</a>
+									<a href="{{ route('projects.edit', $project) }}" class="btn btn-sm btn-outline-success" data-bs-toggle="tooltip" title="Edit Project">
+										<svg class="w-4 h-4" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+										</svg>
+									</a>
 									<form action="{{ route('projects.destroy', $project) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this project?');">
 										@csrf
 										@method('DELETE')
-										<button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+										<button type="submit" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Delete Project">
+											<svg class="w-4 h-4" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+											</svg>
+										</button>
 									</form>
 								</div>
 							</td>
@@ -71,4 +84,16 @@
 		{{ $projects->links() }}
 	</div>
 @endif
+
+@push('scripts')
+<script>
+	// Initialize tooltips
+	document.addEventListener('DOMContentLoaded', function() {
+		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+		var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl);
+		});
+	});
+</script>
+@endpush
 @endsection

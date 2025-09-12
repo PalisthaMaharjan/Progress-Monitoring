@@ -72,7 +72,7 @@
                 <a href="{{ route('projects.edit', $project) }}" class="btn btn-primary px-4 py-2">
                     Edit Project
                 </a>
-                <a href="{{ route('projects.index') }}" class="btn btn-secondary px-4 py-2">
+                <a href="{{ route('projects.index') }}" class="btn btn-outline-primary px-4 py-2">
                     Back to Projects
                 </a>
             </div>

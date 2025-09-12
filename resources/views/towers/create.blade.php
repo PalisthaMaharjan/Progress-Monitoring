@@ -5,7 +5,7 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
 	<h1 class="h2 fw-bold text-dark m-0">Create Tower</h1>
-	<a href="{{ route('towers.index') }}" class="btn btn-outline-secondary px-4 py-2">
+	<a href="{{ route('towers.index') }}" class="btn btn-outline-primary px-4 py-2">
 		Back to Towers
 	</a>
 </div>
@@ -141,7 +141,7 @@
 								<input type="text" name="legs[0][owner]" class="form-control" placeholder="Owner Name">
 							</div>
 							<div class="col-md-2">
-								<label class="form-label">Amount (₹)</label>
+								<label class="form-label">Amount (NPR)</label>
 								<input type="number" name="legs[0][amount]" class="form-control" placeholder="0" step="0.01" min="0">
 							</div>
 							<div class="col-md-2">
@@ -160,7 +160,7 @@
 
 			<div class="d-flex gap-2">
 				<button type="submit" class="btn btn-primary px-4 py-2">Create Tower</button>
-				<a href="{{ route('towers.index') }}" class="btn btn-outline-secondary px-4 py-2">Cancel</a>
+				<a href="{{ route('towers.index') }}" class="btn btn-outline-primary px-4 py-2">Cancel</a>
 			</div>
 		</form>
 	</div>
@@ -190,7 +190,7 @@ function addTowerLeg() {
 				<input type="text" name="legs[${legIndex}][owner]" class="form-control" placeholder="Owner Name">
 			</div>
 			<div class="col-md-2">
-				<label class="form-label">Amount (₹)</label>
+				<label class="form-label">Amount (NPR)</label>
 				<input type="number" name="legs[${legIndex}][amount]" class="form-control" placeholder="0" step="0.01" min="0">
 			</div>
 			<div class="col-md-2">

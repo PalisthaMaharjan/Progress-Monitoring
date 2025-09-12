@@ -7,7 +7,7 @@
 	<h1 class="h2 fw-bold text-dark m-0">Edit Tower</h1>
 	<div class="d-flex gap-2">
 		<a href="{{ route('towers.show', $tower) }}" class="btn btn-outline-primary px-4 py-2">View Tower</a>
-		<a href="{{ route('towers.index') }}" class="btn btn-outline-secondary px-4 py-2">Back to Towers</a>
+		<a href="{{ route('towers.index') }}" class="btn btn-outline-primary px-4 py-2">Back to Towers</a>
 	</div>
 </div>
 
@@ -145,7 +145,7 @@
 									<input type="text" name="legs[{{ $index }}][owner]" class="form-control" value="{{ $leg->owner }}">
 								</div>
 								<div class="col-md-2">
-									<label class="form-label">Amount (₹)</label>
+									<label class="form-label">Amount (NPR)</label>
 									<input type="number" name="legs[{{ $index }}][amount]" class="form-control" value="{{ $leg->amount }}" step="0.01" min="0">
 								</div>
 								<div class="col-md-2">
@@ -160,12 +160,12 @@
 						</div>
 					@endforeach
 				</div>
-				<button type="button" class="btn btn-outline-primary" id="add-tower-leg-btn" onclick="addTowerLeg()">Add Tower Leg</button>
+				<button type="button" class="btn btn-outline-primary" id="add-tower-leg-btn" onclick="addTowerLeg()">btn-outline-primarywer Leg</button>
 			</div>
 
 			<div class="d-flex gap-2">
 				<button type="submit" class="btn btn-primary px-4 py-2">Update Tower</button>
-				<a href="{{ route('towers.show', $tower) }}" class="btn btn-outline-secondary px-4 py-2">Cancel</a>
+				<a href="{{ route('towers.show', $tower) }}" class="btn btn-outline-primary px-4 py-2">Cancel</a>
 			</div>
 		</form>
 	</div>
@@ -203,7 +203,7 @@ function addTowerLeg() {
 				<input type="text" name="legs[${legIndex}][owner]" class="form-control" placeholder="Owner Name">
 			</div>
 			<div class="col-md-2">
-				<label class="form-label">Amount (₹)</label>
+				<label class="form-label">Amount (NPR)</label>
 				<input type="number" name="legs[${legIndex}][amount]" class="form-control" placeholder="0" step="0.01" min="0">
 			</div>
 			<div class="col-md-2">
@@ -230,15 +230,15 @@ function removeTowerLeg(button) {
 function updateAddButtonVisibility() {
 	const addButton = document.getElementById('add-tower-leg-btn');
 	const legItems = document.querySelectorAll('.tower-leg-item');
-	
+
 	console.log('Current leg count:', legItems.length); // Debug log
 	console.log('Add button found:', addButton); // Debug log
-	
+
 	if (!addButton) {
 		console.error('Add button not found!');
 		return;
 	}
-	
+
 	if (legItems.length >= 4) {
 		addButton.style.display = 'none';
 		console.log('Hiding add button'); // Debug log

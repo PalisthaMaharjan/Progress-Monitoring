@@ -7,7 +7,7 @@
 	<h1 class="h2 fw-bold text-dark m-0">{{ $tower->tower_name }} Details</h1>
 	<div class="d-flex gap-2">
 		<a href="{{ route('towers.edit', $tower) }}" class="btn btn-outline-success px-4 py-2">Edit Tower</a>
-		<a href="{{ route('towers.index') }}" class="btn btn-outline-secondary px-4 py-2">Back to Towers</a>
+		<a href="{{ route('towers.index') }}" class="btn btn-outline-primary px-4 py-2">Back to Towers</a>
 	</div>
 </div>
 
@@ -120,7 +120,7 @@
 							<th class="px-4 py-3">LEG</th>
 							<th class="px-4 py-3">KITTA NO</th>
 							<th class="px-4 py-3">OWNER</th>
-							<th class="px-4 py-3">AMOUNT (₹)</th>
+							<th class="px-4 py-3">AMOUNT (NPR)</th>
 							<th class="px-4 py-3">REMARKS</th>
 						</tr>
 					</thead>

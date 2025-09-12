@@ -16,10 +16,10 @@
                 @include('projects._form')
 
                 <div class="d-flex gap-3 mt-4">
-                    <button type="submit" class="btn btn-success px-4 py-2">
+                    <button type="submit" class="btn btn-primary px-4 py-2">
                         Create Project
                     </button>
-                    <a href="{{ route('projects.index') }}" class="btn btn-secondary px-4 py-2">
+                    <a href="{{ route('projects.index') }}" class="btn btn-outline-primary px-4 py-2">
                         Cancel
                     </a>
                 </div>
