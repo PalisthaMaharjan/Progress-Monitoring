@@ -113,17 +113,124 @@
     border-color: #3E3E3A !important;
 }
 
-
-
 .card-body {
     background-color: #fff !important;
-
 }
-
 
 .main-sidebar {
     background-color: #006699 !important;
     border-color: #3E3E3A !important;
+}
+
+/* Collapsible sidebar styles */
+.sidebar-collapsible {
+    width: 280px;
+    transition: width 0.3s ease;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 999;
+}
+
+.sidebar-collapsible.collapsed {
+    width: 80px;
+}
+
+.sidebar-header {
+    background-color: #006699 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Main header sticky styles */
+.header-navbar {
+    z-index: 1000;
+    position: sticky;
+    top: 0;
+}
+
+/* Header toggle button styles */
+.header-navbar .sidebar-toggle {
+    background: none !important;
+    border: none !important;
+    transition: transform 0.3s ease;
+}
+
+.header-navbar .sidebar-toggle:hover {
+    background: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 4px;
+}
+
+.header-navbar .sidebar-toggle svg {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-title {
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-collapsible.collapsed .sidebar-title {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sidebar-toggle {
+    background: none !important;
+    border: none !important;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 4px;
+}
+
+.sidebar-toggle svg {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-text {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    white-space: nowrap;
+}
+
+.sidebar-collapsible.collapsed .sidebar-text {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Adjust main content when sidebar is collapsed */
+.sidebar-collapsible.collapsed + main {
+    margin-left: 0;
+}
+
+/* Sidebar navigation adjustments for collapsed state */
+.sidebar-collapsible.collapsed .nav-link {
+    justify-content: center;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+}
+
+.sidebar-collapsible.collapsed .nav-link svg {
+    margin-right: 0 !important;
+}
+
+/* Make navigation scrollable when header is sticky */
+.sidebar-collapsible .nav {
+    flex: 1;
+    overflow-y: auto;
+    padding-top: 0.5rem;
+}
+
+
+.sidebar nav {
+    position: fixed;
+}
+/* Ensure proper spacing for sticky header */
+.sidebar-collapsible .nav {
+    margin-top: 0;
 }
 
 /* Sidebar navigation link styles */

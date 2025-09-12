@@ -18,10 +18,17 @@
         <link href="{{ asset('app.css') }}" rel="stylesheet">
     </head>
     <body class="bg-light">
-        <!-- Top Header -->
-        <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 header-navbar">
+        <!-- Sticky Top Header -->
+        <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 header-navbar sticky-top">
             <div class="container-fluid">
-                <h1 class="navbar-brand h1 mb-0 fw-bold text-dark">Progress Monitoring</h1>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-link text-dark p-1 sidebar-toggle" id="sidebarToggle" type="button">
+                        <svg class="w-5 h-5" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    <h1 class="navbar-brand h1 mb-0 fw-bold text-dark">Progress Monitoring</h1>
+                </div>
                 <div class="navbar-nav ms-auto">
                     <span class="navbar-text text-dark">{{ date('M d, Y') }}</span>
                 </div>
@@ -29,26 +36,29 @@
         </header>
 
         <div class="d-flex vh-100">
-            <!-- Fixed Sidebar -->
-            <aside class="sidebar main-sidebar w-25 border-end p-4">
-                <nav class="nav flex-column">
+            <!-- Collapsible Sidebar -->
+            <aside class="sidebar main-sidebar border-end sidebar-collapsible" id="sidebar">
+
+
+                <!-- Sidebar Navigation -->
+                <nav class="nav flex-column p-3">
                     <a href="{{ route('home') }}" class="nav-link d-flex align-items-center gap-3 px-3 py-2 text-white text-decoration-none rounded sidebar-link" data-section="home">
                         <svg class="w-5 h-5" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                         </svg>
-                        <span>Home</span>
+                        <span class="sidebar-text">Home</span>
                     </a>
                     <a href="{{ route('projects.index') }}" class="nav-link d-flex align-items-center gap-3 px-3 py-2 text-white text-decoration-none rounded sidebar-link" data-section="projects">
                         <svg class="w-5 h-5" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                         </svg>
-                        <span>Projects</span>
+                        <span class="sidebar-text">Projects</span>
                     </a>
                     <a href="{{ route('towers.index') }}" class="nav-link d-flex align-items-center gap-3 px-3 py-2 text-white text-decoration-none rounded sidebar-link" data-section="towers">
                         <svg class="w-5 h-5" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                         </svg>
-                        <span>Towers</span>
+                        <span class="sidebar-text">Towers</span>
                     </a>
                 </nav>
             </aside>
@@ -70,6 +80,9 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const sidebarLinks = document.querySelectorAll('.sidebar-link');
                 const mainContent = document.querySelector('main');
+                const sidebar = document.getElementById('sidebar');
+                const sidebarToggle = document.getElementById('sidebarToggle');
+                const sidebarTexts = document.querySelectorAll('.sidebar-text');
 
                 // Set active state for current page
                 const currentPath = window.location.pathname;
@@ -90,6 +103,37 @@
                         // Add active state to clicked link
                         this.classList.add('active');
                     });
+                });
+
+                // Handle sidebar toggle
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('collapsed');
+
+                    // Toggle text visibility
+                    sidebarTexts.forEach(text => {
+                        text.style.display = sidebar.classList.contains('collapsed') ? 'none' : 'inline';
+                    });
+
+                    // Rotate toggle icon
+                    const icon = this.querySelector('svg');
+                    icon.style.transform = sidebar.classList.contains('collapsed') ? 'rotate(180deg)' : 'rotate(0deg)';
+                });
+
+                // Check if sidebar should be collapsed on page load (from localStorage)
+                const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                if (isCollapsed) {
+                    sidebar.classList.add('collapsed');
+                    sidebarTexts.forEach(text => {
+                        text.style.display = 'none';
+                    });
+                    const icon = sidebarToggle.querySelector('svg');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+
+                // Save sidebar state to localStorage
+                sidebarToggle.addEventListener('click', function() {
+                    const isCollapsed = sidebar.classList.contains('collapsed');
+                    localStorage.setItem('sidebarCollapsed', isCollapsed);
                 });
             });
         </script>
