@@ -77,19 +77,13 @@ class ProjectController extends Controller
      *         description="Successful operation",
      *         @OA\JsonContent(
      *             @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/Project")),
-     *             @OA\Property(property="links", type="object",
-     *                 @OA\Property(property="first", type="string"),
-     *                 @OA\Property(property="last", type="string"),
-     *                 @OA\Property(property="prev", type="string", nullable=true),
-     *                 @OA\Property(property="next", type="string", nullable=true)
-     *             ),
      *             @OA\Property(property="meta", type="object",
-     *                 @OA\Property(property="current_page", type="integer"),
-     *                 @OA\Property(property="from", type="integer"),
-     *                 @OA\Property(property="last_page", type="integer"),
-     *                 @OA\Property(property="per_page", type="integer"),
-     *                 @OA\Property(property="to", type="integer"),
-     *                 @OA\Property(property="total", type="integer")
+     *                 @OA\Property(property="current_page", type="integer", example=1),
+     *                 @OA\Property(property="from", type="integer", example=1),
+     *                 @OA\Property(property="last_page", type="integer", example=5),
+     *                 @OA\Property(property="per_page", type="integer", example=15),
+     *                 @OA\Property(property="to", type="integer", example=15),
+     *                 @OA\Property(property="total", type="integer", example=75)
      *             )
      *         )
      *     ),
@@ -105,6 +99,17 @@ class ProjectController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+        // Validate request parameters
+        $validated = $request->validate([
+            'search' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:255',
+            'voltage' => 'nullable|numeric|min:0',
+            'sort_by' => 'nullable|string|in:id,title,sub_title,project_id,location,voltage,status,created_at,updated_at',
+            'sort_order' => 'nullable|string|in:asc,desc',
+            'per_page' => 'nullable|integer|min:1|max:100',
+            'include_towers_count' => 'nullable|in:true,false,1,0,"true","false","1","0"',
+        ]);
+
         $query = Project::query();
 
         // Add search functionality
@@ -136,14 +141,27 @@ class ProjectController extends Controller
 
         // Load towers count if requested
         if ($request->has('include_towers_count') && $request->include_towers_count) {
-            $query->withCount('towers');
+            $includeTowersCount = filter_var($request->include_towers_count, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+            if ($includeTowersCount === true) {
+                $query->withCount('towers');
+            }
         }
 
         // Pagination
         $perPage = $request->get('per_page', 15);
         $projects = $query->paginate($perPage);
 
-        return response()->json(ProjectResource::collection($projects));
+        return response()->json([
+            'data' => ProjectResource::collection($projects)->items(),
+            'meta' => [
+                'current_page' => $projects->currentPage(),
+                'from' => $projects->firstItem(),
+                'last_page' => $projects->lastPage(),
+                'per_page' => $projects->perPage(),
+                'to' => $projects->lastItem(),
+                'total' => $projects->total(),
+            ]
+        ]);
     }
 
     /**
@@ -170,7 +188,9 @@ class ProjectController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/Project")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Project")
+     *         )
      *     ),
      *     @OA\Response(
      *         response=404,
@@ -183,10 +203,20 @@ class ProjectController extends Controller
      */
     public function show(Request $request, Project $project): JsonResponse
     {
+        // Validate request parameters
+        $validated = $request->validate([
+            'include_towers' => 'nullable|in:true,false,1,0,"true","false","1","0"',
+        ]);
+
         if ($request->has('include_towers') && $request->include_towers) {
-            $project->load('towers');
+            $includeTowers = filter_var($request->include_towers, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+            if ($includeTowers === true) {
+                $project->load('towers');
+            }
         }
 
-        return response()->json(new ProjectResource($project));
+        return response()->json([
+            'data' => new ProjectResource($project)
+        ]);
     }
 }

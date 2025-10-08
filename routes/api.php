@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\TowerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function () {
     Route::get('/projects', [ProjectController::class, 'index'])->name('api.projects.index');
     Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('api.projects.show');
+    
+    // Towers API routes
+    Route::get('/towers', [TowerController::class, 'index'])->name('api.towers.index');
+    Route::get('/towers/{tower}', [TowerController::class, 'show'])->name('api.towers.show');
 });

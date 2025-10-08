@@ -125,44 +125,31 @@
                                                 "$ref": "#/components/schemas/Project"
                                             }
                                         },
-                                        "links": {
-                                            "properties": {
-                                                "first": {
-                                                    "type": "string"
-                                                },
-                                                "last": {
-                                                    "type": "string"
-                                                },
-                                                "prev": {
-                                                    "type": "string",
-                                                    "nullable": true
-                                                },
-                                                "next": {
-                                                    "type": "string",
-                                                    "nullable": true
-                                                }
-                                            },
-                                            "type": "object"
-                                        },
                                         "meta": {
                                             "properties": {
                                                 "current_page": {
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "example": 1
                                                 },
                                                 "from": {
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "example": 1
                                                 },
                                                 "last_page": {
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "example": 5
                                                 },
                                                 "per_page": {
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "example": 15
                                                 },
                                                 "to": {
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "example": 15
                                                 },
                                                 "total": {
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "example": 75
                                                 }
                                             },
                                             "type": "object"
@@ -230,7 +217,12 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Project"
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Project"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -244,6 +236,318 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Project not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/towers": {
+            "get": {
+                "tags": [
+                    "Towers"
+                ],
+                "summary": "Get list of towers",
+                "description": "Retrieve a paginated list of towers with optional filtering, searching, and sorting",
+                "operationId": "getTowers",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term to filter towers by tower_name, tower_type, or problems",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "transmission"
+                        }
+                    },
+                    {
+                        "name": "project_id",
+                        "in": "query",
+                        "description": "Filter towers by project ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "tower_type",
+                        "in": "query",
+                        "description": "Filter towers by tower type",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "transmission"
+                        }
+                    },
+                    {
+                        "name": "min_progress",
+                        "in": "query",
+                        "description": "Filter towers by minimum overall progress percentage",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 100,
+                            "minimum": 0,
+                            "example": 50
+                        }
+                    },
+                    {
+                        "name": "max_progress",
+                        "in": "query",
+                        "description": "Filter towers by maximum overall progress percentage",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 100,
+                            "minimum": 0,
+                            "example": 100
+                        }
+                    },
+                    {
+                        "name": "has_issues",
+                        "in": "query",
+                        "description": "Filter towers that have issues/problems",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "true",
+                                "false"
+                            ],
+                            "example": "false"
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "description": "Field to sort by",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "created_at",
+                            "enum": [
+                                "id",
+                                "tower_name",
+                                "tower_type",
+                                "foundation_progress",
+                                "tower_erection_progress",
+                                "conductor_progress",
+                                "created_at",
+                                "updated_at"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "sort_order",
+                        "in": "query",
+                        "description": "Sort order",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "desc",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 15,
+                            "maximum": 100,
+                            "minimum": 1
+                        }
+                    },
+                    {
+                        "name": "include_project",
+                        "in": "query",
+                        "description": "Include project relationship in response",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "false",
+                            "enum": [
+                                "true",
+                                "false",
+                                "1",
+                                "0"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "include_legs",
+                        "in": "query",
+                        "description": "Include legs relationship in response",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "false",
+                            "enum": [
+                                "true",
+                                "false",
+                                "1",
+                                "0"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Tower"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 15
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 15
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 75
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/towers/{id}": {
+            "get": {
+                "tags": [
+                    "Towers"
+                ],
+                "summary": "Get a specific tower",
+                "description": "Retrieve a single tower by its ID",
+                "operationId": "getTower",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tower ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "include_project",
+                        "in": "query",
+                        "description": "Include project relationship in response",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "false",
+                            "enum": [
+                                "true",
+                                "false",
+                                "1",
+                                "0"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "include_legs",
+                        "in": "query",
+                        "description": "Include legs relationship in response",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "false",
+                            "enum": [
+                                "true",
+                                "false",
+                                "1",
+                                "0"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Tower"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tower not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tower not found"
                                         }
                                     },
                                     "type": "object"
@@ -315,6 +619,163 @@
                 },
                 "type": "object"
             },
+            "Tower": {
+                "required": [
+                    "id",
+                    "project_id",
+                    "tower_name",
+                    "tower_type",
+                    "foundation_progress",
+                    "tower_erection_progress",
+                    "conductor_progress"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "project_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "tower_name": {
+                        "type": "string",
+                        "example": "Tower-001"
+                    },
+                    "tower_type": {
+                        "type": "string",
+                        "example": "transmission"
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 40.7128,
+                        "nullable": true
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": -74.006,
+                        "nullable": true
+                    },
+                    "foundation_progress": {
+                        "description": "Foundation progress percentage (0-100)",
+                        "type": "integer",
+                        "example": 85
+                    },
+                    "tower_erection_progress": {
+                        "description": "Tower erection progress percentage (0-100)",
+                        "type": "integer",
+                        "example": 90
+                    },
+                    "conductor_progress": {
+                        "description": "Conductor progress percentage (0-100)",
+                        "type": "integer",
+                        "example": 75
+                    },
+                    "overall_progress": {
+                        "description": "Overall progress percentage (calculated)",
+                        "type": "integer",
+                        "example": 83
+                    },
+                    "problems": {
+                        "type": "string",
+                        "example": "Weather delay",
+                        "nullable": true
+                    },
+                    "has_issues": {
+                        "description": "Whether tower has any issues/problems",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "project": {
+                        "description": "Project relationship (when included)",
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "title": {
+                                "type": "string",
+                                "example": "Power Grid Project"
+                            },
+                            "project_id": {
+                                "type": "string",
+                                "example": "PROJ-001"
+                            }
+                        },
+                        "type": "object",
+                        "nullable": true
+                    },
+                    "legs": {
+                        "description": "Tower legs relationship (when included)",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TowerLeg"
+                        },
+                        "nullable": true
+                    },
+                    "legs_count": {
+                        "description": "Number of legs (when legs relationship is loaded)",
+                        "type": "integer",
+                        "example": 4
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T00:00:00.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T00:00:00.000000Z"
+                    }
+                },
+                "type": "object"
+            },
+            "TowerLeg": {
+                "required": [
+                    "id",
+                    "tower_id",
+                    "leg_name",
+                    "kitta_no",
+                    "owner",
+                    "amount"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "tower_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "leg_name": {
+                        "type": "string",
+                        "example": "Leg-A"
+                    },
+                    "kitta_no": {
+                        "type": "string",
+                        "example": "KITTA-001"
+                    },
+                    "owner": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 50000
+                    },
+                    "remarks": {
+                        "type": "string",
+                        "example": "Completed on time",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
             "Error": {
                 "properties": {
                     "message": {
@@ -345,6 +806,10 @@
         {
             "name": "Projects",
             "description": "API endpoints for managing projects"
+        },
+        {
+            "name": "Towers",
+            "description": "API endpoints for managing towers"
         }
     ]
 }
