@@ -35,14 +35,78 @@
 
 /* Custom component styles */
 .btn-primary {
-    background-color: var(--bs-primary);
-    border-color: var(--bs-primary);
+    --bs-btn-bg: #006699;
+    --bs-btn-border-color: #006699;
+    --bs-btn-hover-bg: #07608c;
+    --bs-btn-hover-border-color: #07608c;
+    --bs-btn-active-bg: #07608c;
+    --bs-btn-active-border-color: #07608c;
+    background-color: var(--bs-btn-bg);
+    border-color: var(--bs-btn-border-color);
 }
 
 .btn-primary:hover {
-    background-color: var(--bs-primary-hover);
-    border-color: var(--bs-primary-hover);
+    background-color: var(--bs-btn-hover-bg);
+    border-color: var(--bs-btn-hover-border-color);
 }
+
+.btn-outline-primary {
+    --bs-btn-color: #006699;
+    --bs-btn-border-color: #006699;
+    --bs-btn-hover-bg: #07608c;
+    --bs-btn-hover-border-color: #07608c;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-bg: #07608c;
+    --bs-btn-active-border-color: #07608c;
+    --bs-btn-active-color: #fff;
+    color: var(--bs-btn-color);
+    border-color: var(--bs-btn-border-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--bs-btn-hover-bg);
+    border-color: var(--bs-btn-hover-border-color);
+    color: var(--bs-btn-hover-color);
+}
+
+/* Alert card styles */
+.alert-card {
+    --alert-color: #16a34a; /* default green */
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-left: 6px solid var(--alert-color);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 0.875rem 1rem;
+}
+
+.alert-card .alert-title {
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.alert-card .alert-text {
+    color: #4b5563;
+    margin: 0.25rem 0 0 0;
+    font-size: 0.9rem;
+}
+
+.alert-card .alert-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+.alert-card .btn-close {
+    opacity: 0.6;
+}
+
+.alert-card .btn-close:hover { opacity: 1; }
+
+.alert-card--success { --alert-color: #16a34a; }
+.alert-card--error { --alert-color: #dc2626; }
 
 .btn-success {
     background-color: var(--bs-success);
@@ -101,7 +165,7 @@
 
 
 .card-body {
-    background-color: #ccccbd !important;
+    background-color: #fff !important;
 }
 
 
@@ -124,6 +188,24 @@
 .sidebar .nav-link.active {
     color: #000000 !important;
     background-color: #ffffff !important;
+}
+
+/* Delete Modal Styles */
+.delete-modal button {
+    width: 129px;
+}
+
+.delete-modal .modal-body{
+    padding-bottom: 5px;
+}
+
+.delete-modal p {
+    margin-bottom: 0px;
+}
+
+.delete-modal .modal-footer {
+    justify-content: center;
+    border-top: 0px;
 }
 
 /* Mobile responsive - hide text on small screens */

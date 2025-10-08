@@ -160,7 +160,7 @@
 						</div>
 					@endforeach
 				</div>
-				<button type="button" class="btn btn-outline-primary" id="add-tower-leg-btn" onclick="addTowerLeg()">btn-outline-primarywer Leg</button>
+				<button type="button" class="btn btn-outline-primary" id="add-tower-leg-btn" onclick="addTowerLeg()">Add Tower Leg</button>
 			</div>
 
 			<div class="d-flex gap-2">

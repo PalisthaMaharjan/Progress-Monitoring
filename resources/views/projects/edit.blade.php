@@ -3,7 +3,7 @@
 @section('title', 'Edit Project')
 
 @section('content')
-<div class="container mx-auto">
+<div class="container-fluid mx-auto">
     <div class="mb-4">
         <h2 class="h2 fw-bold text-dark mb-2">Edit Project</h2>
         <p class="text-muted">Update project information</p>

@@ -15,7 +15,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
         <!-- Custom CSS -->
-        <link href="{{ asset('app.css') }}" rel="stylesheet">
+        @vite(['resources/css/app.css'])
     </head>
     <body class="bg-light">
         <!-- Sticky Top Header -->
@@ -42,12 +42,12 @@
 
                 <!-- Sidebar Navigation -->
                 <nav class="nav flex-column p-3">
-                    <a href="{{ route('home') }}" class="nav-link d-flex align-items-center gap-3 px-3 py-2 text-white text-decoration-none rounded sidebar-link" data-section="home">
+                    <!-- <a href="{{ route('home') }}" class="nav-link d-flex align-items-center gap-3 px-3 py-2 text-white text-decoration-none rounded sidebar-link" data-section="home">
                         <svg class="w-5 h-5" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                         </svg>
                         <span class="sidebar-text">Home</span>
-                    </a>
+                    </a> -->
                     <a href="{{ route('projects.index') }}" class="nav-link d-flex align-items-center gap-3 px-3 py-2 text-white text-decoration-none rounded sidebar-link" data-section="projects">
                         <svg class="w-5 h-5" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
@@ -66,8 +66,33 @@
             <!-- Main Content Area -->
             <main class="flex-grow-1 overflow-auto p-4">
                 @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-                        {{ session('success') }}
+                    <div class="alert alert-dismissible fade show alert-card alert-card--success d-flex align-items-start justify-content-between gap-3 mb-3" role="alert">
+                        <div class="d-flex align-items-start">
+                            <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M9 12l2 2 4-4" />
+                                <circle cx="12" cy="12" r="9" stroke="#16a34a"/>
+                            </svg>
+                            <div>
+                                <p class="alert-title mb-1">Success</p>
+                                <p class="alert-text">{{ session('success') }}</p>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-dismissible fade show alert-card alert-card--error d-flex align-items-start justify-content-between gap-3 mb-3" role="alert">
+                        <div class="d-flex align-items-start">
+                            <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 8v4m0 4h.01" />
+                                <circle cx="12" cy="12" r="9" stroke="#dc2626"/>
+                            </svg>
+                            <div>
+                                <p class="alert-title mb-1">Error</p>
+                                <p class="alert-text">{{ session('error') }}</p>
+                            </div>
+                        </div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif

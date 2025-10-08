@@ -3,12 +3,7 @@
 @section('title', 'Projects')
 
 @section('content')
-@if (session('success'))
-	<div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-		{{ session('success') }}
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div>
-@endif
+
 
 <div class="d-flex justify-content-between align-items-center mb-4">
 	<h1 class="h2 fw-bold text-dark m-0">Projects</h1>
@@ -56,15 +51,11 @@
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
 										</svg>
 									</a>
-									<form action="{{ route('projects.destroy', $project) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this project?');">
-										@csrf
-										@method('DELETE')
-										<button type="submit" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Delete Project">
-											<svg class="w-4 h-4" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-											</svg>
-										</button>
-									</form>
+									<button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Delete Project" onclick="showDeleteModal({{ $project->id }}, '{{ $project->title }}')">
+										<svg class="w-4 h-4" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+										</svg>
+									</button>
 								</div>
 							</td>
 						</tr>
@@ -85,6 +76,29 @@
 	</div>
 @endif
 
+<!-- Delete Confirmation Modal -->
+<div class="modal fade delete-modal" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="deleteModalLabel">Delete Project</h5>
+				<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to delete the project <strong id="projectTitle"></strong>?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				<form id="deleteForm" method="POST" class="d-inline">
+					@csrf
+					@method('DELETE')
+					<button type="submit" class="btn btn-danger">Delete Project</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 @push('scripts')
 <script>
 	// Initialize tooltips
@@ -94,6 +108,19 @@
 			return new bootstrap.Tooltip(tooltipTriggerEl);
 		});
 	});
+
+	// Function to show delete confirmation modal
+	function showDeleteModal(projectId, projectTitle) {
+		// Set the project title in the modal
+		document.getElementById('projectTitle').textContent = projectTitle;
+		
+		// Set the form action URL
+		document.getElementById('deleteForm').action = '{{ route("projects.destroy", ":id") }}'.replace(':id', projectId);
+		
+		// Show the modal
+		var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+		deleteModal.show();
+	}
 </script>
 @endpush
 @endsection
