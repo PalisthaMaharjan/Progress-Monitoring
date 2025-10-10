@@ -70,7 +70,7 @@ class TowerController extends Controller
      *         in="query",
      *         description="Field to sort by",
      *         required=false,
-     *         @OA\Schema(type="string", enum={"id", "tower_name", "tower_type", "foundation_progress", "tower_erection_progress", "conductor_progress", "created_at", "updated_at"}, default="created_at")
+     *         @OA\Schema(type="string", enum={"id", "tower_name", "tower_type", "foundation_progress", "tower_erection_progress", "stringing_progress", "created_at", "updated_at"}, default="created_at")
      *     ),
      *     @OA\Parameter(
      *         name="sort_order",
@@ -135,7 +135,7 @@ class TowerController extends Controller
             'min_progress' => 'nullable|integer|min:0|max:100',
             'max_progress' => 'nullable|integer|min:0|max:100',
             'has_issues' => 'nullable|in:true,false,1,0,"true","false","1","0"',
-            'sort_by' => 'nullable|string|in:id,tower_name,tower_type,foundation_progress,tower_erection_progress,conductor_progress,created_at,updated_at',
+            'sort_by' => 'nullable|string|in:id,tower_name,tower_type,foundation_progress,tower_erection_progress,stringing_progress,created_at,updated_at',
             'sort_order' => 'nullable|string|in:asc,desc',
             'per_page' => 'nullable|integer|min:1|max:100',
             'include_project' => 'nullable|in:true,false,1,0,"true","false","1","0"',
@@ -166,11 +166,11 @@ class TowerController extends Controller
 
         // Add progress filters
         if ($request->has('min_progress') && $request->min_progress) {
-            $query->whereRaw('(foundation_progress + tower_erection_progress + conductor_progress) / 3 >= ?', [$request->min_progress]);
+            $query->whereRaw('(foundation_progress + tower_erection_progress + stringing_progress) / 3 >= ?', [$request->min_progress]);
         }
 
         if ($request->has('max_progress') && $request->max_progress) {
-            $query->whereRaw('(foundation_progress + tower_erection_progress + conductor_progress) / 3 <= ?', [$request->max_progress]);
+            $query->whereRaw('(foundation_progress + tower_erection_progress + stringing_progress) / 3 <= ?', [$request->max_progress]);
         }
 
         // Add issues filter

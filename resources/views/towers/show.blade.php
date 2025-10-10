@@ -28,6 +28,16 @@
 					<div class="col-sm-8"><span class="badge bg-info">{{ $tower->tower_type }}</span></div>
 				</div>
 				<div class="row mb-3">
+					<div class="col-sm-4"><strong>Address:</strong></div>
+					<div class="col-sm-8">
+						@if($tower->address)
+							{{ $tower->address }}
+						@else
+							<span class="text-muted">Not set</span>
+						@endif
+					</div>
+				</div>
+				<div class="row mb-3">
 					<div class="col-sm-4"><strong>Project:</strong></div>
 					<div class="col-sm-8">{{ $tower->project->title }} ({{ $tower->project->project_id }})</div>
 				</div>
@@ -84,11 +94,11 @@
 
 				<div class="mb-3">
 					<div class="d-flex justify-content-between align-items-center mb-2">
-						<span><strong>Conductor</strong></span>
-						<span class="badge bg-warning">{{ $tower->conductor_progress }}%</span>
+						<span><strong>Stringing</strong></span>
+						<span class="badge bg-warning">{{ $tower->stringing_progress }}%</span>
 					</div>
 					<div class="progress" style="height: 20px;">
-						<div class="progress-bar bg-warning" role="progressbar" style="width: {{ $tower->conductor_progress }}%"></div>
+						<div class="progress-bar bg-warning" role="progressbar" style="width: {{ $tower->stringing_progress }}%"></div>
 					</div>
 				</div>
 

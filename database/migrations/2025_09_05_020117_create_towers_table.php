@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('longitude', 10, 7)->nullable();
             $table->integer('foundation_progress')->default(0); // 0-100
             $table->integer('tower_erection_progress')->default(0); // 0-100
-            $table->integer('conductor_progress')->default(0); // 0-100
+            $table->integer('stringing_progress')->default(0); // 0-100
             $table->text('problems')->nullable(); // Issues/problems description
             $table->timestamps();
         });

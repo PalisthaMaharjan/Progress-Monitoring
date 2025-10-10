@@ -33,9 +33,10 @@ class TowerController extends Controller
     public function create(Request $request)
     {
         $projects = Project::all();
-        $selectedProject = $request->get('project_id');
+        $selectedProjectId = $request->get('project_id');
+        $selectedProject = $selectedProjectId ? Project::find($selectedProjectId) : null;
 
-        return view('towers.create', compact('projects', 'selectedProject'));
+        return view('towers.create', compact('projects', 'selectedProject', 'selectedProjectId'));
     }
 
     /**
@@ -47,11 +48,12 @@ class TowerController extends Controller
             'project_id' => ['required', 'exists:projects,id'],
             'tower_name' => ['required', 'string', 'max:255'],
             'tower_type' => ['required', 'string', 'max:255'],
+            'address' => ['nullable', 'string', 'max:500'],
             'latitude' => ['nullable', 'numeric', 'between:-90,90'],
             'longitude' => ['nullable', 'numeric', 'between:-180,180'],
             'foundation_progress' => ['required', 'integer', 'min:0', 'max:100'],
             'tower_erection_progress' => ['required', 'integer', 'min:0', 'max:100'],
-            'conductor_progress' => ['required', 'integer', 'min:0', 'max:100'],
+            'stringing_progress' => ['required', 'integer', 'min:0', 'max:100'],
             'problems' => ['nullable', 'string'],
             'legs' => ['nullable', 'array'],
             'legs.*.leg_name' => ['required_with:legs', 'string'],
@@ -104,11 +106,12 @@ class TowerController extends Controller
             'project_id' => ['required', 'exists:projects,id'],
             'tower_name' => ['required', 'string', 'max:255'],
             'tower_type' => ['required', 'string', 'max:255'],
+            'address' => ['nullable', 'string', 'max:500'],
             'latitude' => ['nullable', 'numeric', 'between:-90,90'],
             'longitude' => ['nullable', 'numeric', 'between:-180,180'],
             'foundation_progress' => ['required', 'integer', 'min:0', 'max:100'],
             'tower_erection_progress' => ['required', 'integer', 'min:0', 'max:100'],
-            'conductor_progress' => ['required', 'integer', 'min:0', 'max:100'],
+            'stringing_progress' => ['required', 'integer', 'min:0', 'max:100'],
             'problems' => ['nullable', 'string'],
             'legs' => ['nullable', 'array'],
             'legs.*.id' => ['nullable', 'exists:tower_legs,id'],

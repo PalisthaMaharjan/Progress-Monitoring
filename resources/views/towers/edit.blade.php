@@ -63,6 +63,18 @@
 					</div>
 				</div>
 
+				<div class="col-md-6">
+					<div class="mb-3">
+						<label for="address" class="form-label">Address</label>
+						<input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address', $tower->address) }}" placeholder="Enter tower address or location">
+						@error('address')
+							<div class="invalid-feedback">{{ $message }}</div>
+						@enderror
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
 				<div class="col-md-3">
 					<div class="mb-3">
 						<label for="latitude" class="form-label">Latitude</label>
@@ -107,9 +119,9 @@
 
 				<div class="col-md-4">
 					<div class="mb-3">
-						<label for="conductor_progress" class="form-label">Conductor Progress (%) <span class="text-danger">*</span></label>
-						<input type="number" name="conductor_progress" id="conductor_progress" class="form-control @error('conductor_progress') is-invalid @enderror" value="{{ old('conductor_progress', $tower->conductor_progress) }}" min="0" max="100" required>
-						@error('conductor_progress')
+						<label for="stringing_progress" class="form-label">Stringing Progress (%) <span class="text-danger">*</span></label>
+						<input type="number" name="stringing_progress" id="stringing_progress" class="form-control @error('stringing_progress') is-invalid @enderror" value="{{ old('stringing_progress', $tower->stringing_progress) }}" min="0" max="100" required>
+						@error('stringing_progress')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
 					</div>

@@ -337,7 +337,7 @@
                                 "tower_type",
                                 "foundation_progress",
                                 "tower_erection_progress",
-                                "conductor_progress",
+                                "stringing_progress",
                                 "created_at",
                                 "updated_at"
                             ]
@@ -627,7 +627,7 @@
                     "tower_type",
                     "foundation_progress",
                     "tower_erection_progress",
-                    "conductor_progress"
+                    "stringing_progress"
                 ],
                 "properties": {
                     "id": {
@@ -668,8 +668,8 @@
                         "type": "integer",
                         "example": 90
                     },
-                    "conductor_progress": {
-                        "description": "Conductor progress percentage (0-100)",
+                    "stringing_progress": {
+                        "description": "Stringing progress percentage (0-100)",
                         "type": "integer",
                         "example": 75
                     },

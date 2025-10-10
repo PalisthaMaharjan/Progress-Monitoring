@@ -12,9 +12,9 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
 	<h1 class="h2 fw-bold text-dark m-0">Towers</h1>
-	<a href="{{ route('towers.create') }}" class="btn btn-primary px-4 py-2">
+	<!-- <a href="{{ route('towers.create') }}" class="btn btn-primary px-4 py-2">
 		Create Tower
-	</a>
+	</a> -->
 </div>
 
 <!-- Filter Section -->
@@ -53,11 +53,12 @@
 						<th class="table-header px-4 py-3">ID</th>
 						<th class="table-header px-4 py-3">Tower Name</th>
 						<th class="table-header px-4 py-3">Type</th>
+						<th class="table-header px-4 py-3">Address</th>
 						<th class="table-header px-4 py-3">Project</th>
 						<th class="table-header px-4 py-3">Location</th>
 						<th class="table-header px-4 py-3">Foundation</th>
 						<th class="table-header px-4 py-3">Tower Erection</th>
-						<th class="table-header px-4 py-3">Conductor</th>
+						<th class="table-header px-4 py-3">Stringing</th>
 						<th class="table-header px-4 py-3">Issues</th>
 						<th class="table-header px-4 py-3">Actions</th>
 					</tr>
@@ -69,6 +70,13 @@
 							<td class="table-cell px-4 py-3">{{ $tower->tower_name }}</td>
 							<td class="table-cell px-4 py-3">
 								<span class="badge bg-info">{{ $tower->tower_type }}</span>
+							</td>
+							<td class="table-cell px-4 py-3">
+								@if($tower->address)
+									<span class="text-truncate d-inline-block" style="max-width: 200px;" title="{{ $tower->address }}">{{ $tower->address }}</span>
+								@else
+									<span class="text-muted">Not set</span>
+								@endif
 							</td>
 							<td class="table-cell px-4 py-3">{{ $tower->project->title }}</td>
 							<td class="table-cell px-4 py-3">
@@ -97,9 +105,9 @@
 							<td class="table-cell px-4 py-3">
 								<div class="d-flex align-items-center">
 									<div class="progress flex-grow-1 me-2" style="height: 8px;">
-										<div class="progress-bar bg-warning" role="progressbar" style="width: {{ $tower->conductor_progress }}%"></div>
+										<div class="progress-bar bg-warning" role="progressbar" style="width: {{ $tower->stringing_progress }}%"></div>
 									</div>
-									<small class="text-muted">{{ $tower->conductor_progress }}%</small>
+									<small class="text-muted">{{ $tower->stringing_progress }}%</small>
 								</div>
 							</td>
 							<td class="table-cell px-4 py-3">
@@ -132,7 +140,7 @@
 						</tr>
 					@empty
 						<tr>
-							<td colspan="10" class="text-center text-muted py-4">No towers found.</td>
+							<td colspan="11" class="text-center text-muted py-4">No towers found.</td>
 						</tr>
 					@endforelse
 				</tbody>
@@ -183,10 +191,10 @@
 	function showDeleteTowerModal(towerId, towerName) {
 		// Set the tower name in the modal
 		document.getElementById('towerName').textContent = towerName;
-		
+
 		// Set the form action URL
 		document.getElementById('deleteTowerForm').action = '{{ route("towers.destroy", ":id") }}'.replace(':id', towerId);
-		
+
 		// Show the modal
 		var deleteTowerModal = new bootstrap.Modal(document.getElementById('deleteTowerModal'));
 		deleteTowerModal.show();

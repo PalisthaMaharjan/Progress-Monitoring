@@ -4,7 +4,12 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-	<h1 class="h2 fw-bold text-dark m-0">Create Tower</h1>
+	<div>
+		<h1 class="h2 fw-bold text-dark m-0">Create Tower</h1>
+		@if($selectedProject)
+			<p class="text-muted mb-0">For Project: <strong>{{ $selectedProject->title }} ({{ $selectedProject->project_id }})</strong></p>
+		@endif
+	</div>
 	<a href="{{ route('towers.index') }}" class="btn btn-outline-primary px-4 py-2">
 		Back to Towers
 	</a>
@@ -22,7 +27,7 @@
 						<select name="project_id" id="project_id" class="form-select @error('project_id') is-invalid @enderror" required>
 							<option value="">Select Project</option>
 							@foreach($projects as $project)
-								<option value="{{ $project->id }}" {{ (old('project_id', $selectedProject) == $project->id) ? 'selected' : '' }}>
+								<option value="{{ $project->id }}" {{ (old('project_id', $selectedProjectId) == $project->id) ? 'selected' : '' }}>
 									{{ $project->title }} ({{ $project->project_id }})
 								</option>
 							@endforeach
@@ -61,6 +66,18 @@
 					</div>
 				</div>
 
+				<div class="col-md-6">
+					<div class="mb-3">
+						<label for="address" class="form-label">Address</label>
+						<input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Enter tower address or location">
+						@error('address')
+							<div class="invalid-feedback">{{ $message }}</div>
+						@enderror
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
 				<div class="col-md-3">
 					<div class="mb-3">
 						<label for="latitude" class="form-label">Latitude</label>
@@ -105,9 +122,9 @@
 
 				<div class="col-md-4">
 					<div class="mb-3">
-						<label for="conductor_progress" class="form-label">Conductor Progress (%) <span class="text-danger">*</span></label>
-						<input type="number" name="conductor_progress" id="conductor_progress" class="form-control @error('conductor_progress') is-invalid @enderror" value="{{ old('conductor_progress', 0) }}" min="0" max="100" required>
-						@error('conductor_progress')
+						<label for="stringing_progress" class="form-label">Stringing Progress (%) <span class="text-danger">*</span></label>
+						<input type="number" name="stringing_progress" id="stringing_progress" class="form-control @error('stringing_progress') is-invalid @enderror" value="{{ old('stringing_progress', 0) }}" min="0" max="100" required>
+						@error('stringing_progress')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
 					</div>

@@ -15,12 +15,12 @@ use Illuminate\Routing\Controller as BaseController;
  *         email="admin@example.com"
  *     )
  * )
- * 
+ *
  * @OA\Server(
  *     url="http://localhost:8000",
  *     description="Development server"
  * )
- * 
+ *
  * @OA\Components(
  *     @OA\SecurityScheme(
  *         securityScheme="bearerAuth",
@@ -46,7 +46,7 @@ use Illuminate\Routing\Controller as BaseController;
      *     @OA\Schema(
      *         schema="Tower",
      *         type="object",
-     *         required={"id", "project_id", "tower_name", "tower_type", "foundation_progress", "tower_erection_progress", "conductor_progress"},
+     *         required={"id", "project_id", "tower_name", "tower_type", "foundation_progress", "tower_erection_progress", "stringing_progress"},
      *         @OA\Property(property="id", type="integer", example=1),
      *         @OA\Property(property="project_id", type="integer", example=1),
      *         @OA\Property(property="tower_name", type="string", example="Tower-001"),
@@ -55,7 +55,7 @@ use Illuminate\Routing\Controller as BaseController;
      *         @OA\Property(property="longitude", type="number", format="float", example=-74.0060, nullable=true),
      *         @OA\Property(property="foundation_progress", type="integer", example=85, description="Foundation progress percentage (0-100)"),
      *         @OA\Property(property="tower_erection_progress", type="integer", example=90, description="Tower erection progress percentage (0-100)"),
-     *         @OA\Property(property="conductor_progress", type="integer", example=75, description="Conductor progress percentage (0-100)"),
+     *         @OA\Property(property="stringing_progress", type="integer", example=75, description="Stringing progress percentage (0-100)"),
      *         @OA\Property(property="overall_progress", type="integer", example=83, description="Overall progress percentage (calculated)"),
      *         @OA\Property(property="problems", type="string", example="Weather delay", nullable=true),
      *         @OA\Property(property="has_issues", type="boolean", example=true, description="Whether tower has any issues/problems"),

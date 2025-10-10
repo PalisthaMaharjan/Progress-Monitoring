@@ -23,7 +23,7 @@ class TowerResource extends JsonResource
             'longitude' => $this->longitude,
             'foundation_progress' => $this->foundation_progress,
             'tower_erection_progress' => $this->tower_erection_progress,
-            'conductor_progress' => $this->conductor_progress,
+            'stringing_progress' => $this->stringing_progress,
             'overall_progress' => $this->overall_progress,
             'problems' => $this->problems,
             'has_issues' => $this->hasIssues(),

@@ -12,11 +12,12 @@ class Tower extends Model
         'project_id',
         'tower_name',
         'tower_type',
+        'address',
         'latitude',
         'longitude',
         'foundation_progress',
         'tower_erection_progress',
-        'conductor_progress',
+        'stringing_progress',
         'problems',
     ];
 
@@ -25,7 +26,7 @@ class Tower extends Model
         'longitude' => 'decimal:7',
         'foundation_progress' => 'integer',
         'tower_erection_progress' => 'integer',
-        'conductor_progress' => 'integer',
+        'stringing_progress' => 'integer',
     ];
 
     /**
@@ -49,7 +50,7 @@ class Tower extends Model
      */
     public function getOverallProgressAttribute(): int
     {
-        return (int) round(($this->foundation_progress + $this->tower_erection_progress + $this->conductor_progress) / 3);
+        return (int) round(($this->foundation_progress + $this->tower_erection_progress + $this->stringing_progress) / 3);
     }
 
     /**

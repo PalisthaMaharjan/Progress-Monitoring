@@ -97,11 +97,9 @@
 			required
 		>
 			<option value="">Select status</option>
-			<option value="Planning" {{ (old('status', $project->status ?? '') == 'Planning') ? 'selected' : '' }}>Planning</option>
-			<option value="In Progress" {{ (old('status', $project->status ?? '') == 'In Progress') ? 'selected' : '' }}>In Progress</option>
-			<option value="Completed" {{ (old('status', $project->status ?? '') == 'Completed') ? 'selected' : '' }}>Completed</option>
-			<option value="On Hold" {{ (old('status', $project->status ?? '') == 'On Hold') ? 'selected' : '' }}>On Hold</option>
-			<option value="Cancelled" {{ (old('status', $project->status ?? '') == 'Cancelled') ? 'selected' : '' }}>Cancelled</option>
+			<option value="Study" {{ (old('status', $project->status ?? '') == 'Study') ? 'selected' : '' }}>Study</option>
+			<option value="Under construction" {{ (old('status', $project->status ?? '') == 'Under construction') ? 'selected' : '' }}>Under construction</option>
+			<option value="Under operation" {{ (old('status', $project->status ?? '') == 'Under operation') ? 'selected' : '' }}>Under operation</option>
 		</select>
 		@error('status')
 			<div class="invalid-feedback d-block">{{ $message }}</div>
