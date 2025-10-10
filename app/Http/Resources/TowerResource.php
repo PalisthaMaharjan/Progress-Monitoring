@@ -19,6 +19,7 @@ class TowerResource extends JsonResource
             'project_id' => $this->project_id,
             'tower_name' => $this->tower_name,
             'tower_type' => $this->tower_type,
+            'address' => $this->address,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'foundation_progress' => $this->foundation_progress,

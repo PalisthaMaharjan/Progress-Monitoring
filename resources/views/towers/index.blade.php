@@ -3,13 +3,6 @@
 @section('title', 'Towers')
 
 @section('content')
-@if (session('success'))
-	<div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-		{{ session('success') }}
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div>
-@endif
-
 <div class="d-flex justify-content-between align-items-center mb-4">
 	<h1 class="h2 fw-bold text-dark m-0">Towers</h1>
 	<!-- <a href="{{ route('towers.create') }}" class="btn btn-primary px-4 py-2">

@@ -172,7 +172,7 @@
 						</div>
 					</div>
 				</div>
-				<button type="button" class="btn btn-outline-primary" onclick="addTowerLeg()">Add Tower Leg</button>
+				<button type="button" class="btn btn-outline-primary" id="addTowerLegBtn" onclick="addTowerLeg()">Add Tower Leg</button>
 			</div>
 
 			<div class="d-flex gap-2">
@@ -188,7 +188,14 @@ let legIndex = 1;
 
 function addTowerLeg() {
 	const container = document.getElementById('tower-legs-container');
-	const legLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+	const addButton = document.getElementById('addTowerLegBtn');
+	const legLetters = ['A', 'B', 'C', 'D'];
+	
+	// Check if we already have 4 legs
+	const existingLegs = container.querySelectorAll('.tower-leg-item');
+	if (existingLegs.length >= 4) {
+		return; // Don't add more than 4 legs
+	}
 
 	const legItem = document.createElement('div');
 	legItem.className = 'tower-leg-item border rounded p-3 mb-3';
@@ -223,10 +230,25 @@ function addTowerLeg() {
 
 	container.appendChild(legItem);
 	legIndex++;
+	
+	// Hide the "Add Tower Leg" button if we now have 4 legs
+	const updatedLegs = container.querySelectorAll('.tower-leg-item');
+	if (updatedLegs.length >= 4) {
+		addButton.style.display = 'none';
+	}
 }
 
 function removeTowerLeg(button) {
 	button.closest('.tower-leg-item').remove();
+	
+	// Show the "Add Tower Leg" button if we now have less than 4 legs
+	const container = document.getElementById('tower-legs-container');
+	const addButton = document.getElementById('addTowerLegBtn');
+	const remainingLegs = container.querySelectorAll('.tower-leg-item');
+	
+	if (remainingLegs.length < 4) {
+		addButton.style.display = 'inline-block';
+	}
 }
 </script>
 @endsection

@@ -72,6 +72,20 @@ class ProjectController extends Controller
      *         required=false,
      *         @OA\Schema(type="boolean", default=false)
      *     ),
+     *     @OA\Parameter(
+     *         name="include_towers",
+     *         in="query",
+     *         description="Include towers with their details in response",
+     *         required=false,
+     *         @OA\Schema(type="boolean", default=false)
+     *     ),
+     *     @OA\Parameter(
+     *         name="include_tower_legs",
+     *         in="query",
+     *         description="Include tower legs when towers are included",
+     *         required=false,
+     *         @OA\Schema(type="boolean", default=false)
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -108,6 +122,8 @@ class ProjectController extends Controller
             'sort_order' => 'nullable|string|in:asc,desc',
             'per_page' => 'nullable|integer|min:1|max:100',
             'include_towers_count' => 'nullable|in:true,false,1,0,"true","false","1","0"',
+            'include_towers' => 'nullable|in:true,false,1,0,"true","false","1","0"',
+            'include_tower_legs' => 'nullable|in:true,false,1,0,"true","false","1","0"',
         ]);
 
         $query = Project::query();
@@ -147,6 +163,23 @@ class ProjectController extends Controller
             }
         }
 
+        // Load towers with details if requested
+        if ($request->has('include_towers') && $request->include_towers) {
+            $includeTowers = filter_var($request->include_towers, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+            if ($includeTowers === true) {
+                $includeTowerLegs = false;
+                if ($request->has('include_tower_legs') && $request->include_tower_legs) {
+                    $includeTowerLegs = filter_var($request->include_tower_legs, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                }
+                
+                if ($includeTowerLegs === true) {
+                    $query->with('towers.legs');
+                } else {
+                    $query->with('towers');
+                }
+            }
+        }
+
         // Pagination
         $perPage = $request->get('per_page', 15);
         $projects = $query->paginate($perPage);
@@ -181,7 +214,14 @@ class ProjectController extends Controller
      *     @OA\Parameter(
      *         name="include_towers",
      *         in="query",
-     *         description="Include towers relationship in response",
+     *         description="Include towers with their details in response",
+     *         required=false,
+     *         @OA\Schema(type="boolean", default=false)
+     *     ),
+     *     @OA\Parameter(
+     *         name="include_tower_legs",
+     *         in="query",
+     *         description="Include tower legs when towers are included",
      *         required=false,
      *         @OA\Schema(type="boolean", default=false)
      *     ),
@@ -206,14 +246,64 @@ class ProjectController extends Controller
         // Validate request parameters
         $validated = $request->validate([
             'include_towers' => 'nullable|in:true,false,1,0,"true","false","1","0"',
+            'include_tower_legs' => 'nullable|in:true,false,1,0,"true","false","1","0"',
         ]);
 
         if ($request->has('include_towers') && $request->include_towers) {
             $includeTowers = filter_var($request->include_towers, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
             if ($includeTowers === true) {
-                $project->load('towers');
+                $includeTowerLegs = false;
+                if ($request->has('include_tower_legs') && $request->include_tower_legs) {
+                    $includeTowerLegs = filter_var($request->include_tower_legs, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                }
+                
+                if ($includeTowerLegs === true) {
+                    $project->load('towers.legs');
+                } else {
+                    $project->load('towers');
+                }
             }
         }
+
+        return response()->json([
+            'data' => new ProjectResource($project)
+        ]);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/v1/projects/{id}/with-towers",
+     *     summary="Get a specific project with all tower details",
+     *     description="Retrieve a single project by its ID with all towers and their legs included",
+     *     operationId="getProjectWithTowers",
+     *     tags={"Projects"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Project ID",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Project")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Project not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Project not found")
+     *         )
+     *     )
+     * )
+     */
+    public function showWithTowers(Project $project): JsonResponse
+    {
+        // Load towers with their legs
+        $project->load('towers.legs');
 
         return response()->json([
             'data' => new ProjectResource($project)

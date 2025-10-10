@@ -110,6 +110,26 @@
                             "type": "boolean",
                             "default": false
                         }
+                    },
+                    {
+                        "name": "include_towers",
+                        "in": "query",
+                        "description": "Include towers with their details in response",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
+                        "name": "include_tower_legs",
+                        "in": "query",
+                        "description": "Include tower legs when towers are included",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
                     }
                 ],
                 "responses": {
@@ -203,11 +223,76 @@
                     {
                         "name": "include_towers",
                         "in": "query",
-                        "description": "Include towers relationship in response",
+                        "description": "Include towers with their details in response",
                         "required": false,
                         "schema": {
                             "type": "boolean",
                             "default": false
+                        }
+                    },
+                    {
+                        "name": "include_tower_legs",
+                        "in": "query",
+                        "description": "Include tower legs when towers are included",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Project"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Project not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Project not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/projects/{id}/with-towers": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Get a specific project with all tower details",
+                "description": "Retrieve a single project by its ID with all towers and their legs included",
+                "operationId": "getProjectWithTowers",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Project ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
                         }
                     }
                 ],
@@ -625,6 +710,7 @@
                     "project_id",
                     "tower_name",
                     "tower_type",
+                    "address",
                     "foundation_progress",
                     "tower_erection_progress",
                     "stringing_progress"
@@ -645,6 +731,11 @@
                     "tower_type": {
                         "type": "string",
                         "example": "transmission"
+                    },
+                    "address": {
+                        "description": "Tower address (empty string if not specified)",
+                        "type": "string",
+                        "example": "123 Main Street, City, State"
                     },
                     "latitude": {
                         "type": "number",

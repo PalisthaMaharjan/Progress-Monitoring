@@ -196,7 +196,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function addTowerLeg() {
 	const container = document.getElementById('tower-legs-container');
-	const legLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+	const addButton = document.getElementById('add-tower-leg-btn');
+	const legLetters = ['A', 'B', 'C', 'D'];
+	
+	// Check if we already have 4 legs
+	const existingLegs = container.querySelectorAll('.tower-leg-item');
+	if (existingLegs.length >= 4) {
+		return; // Don't add more than 4 legs
+	}
 
 	const legItem = document.createElement('div');
 	legItem.className = 'tower-leg-item border rounded p-3 mb-3';
@@ -231,20 +238,30 @@ function addTowerLeg() {
 
 	container.appendChild(legItem);
 	legIndex++;
-	updateAddButtonVisibility();
+	
+	// Hide the "Add Tower Leg" button if we now have 4 legs
+	const updatedLegs = container.querySelectorAll('.tower-leg-item');
+	if (updatedLegs.length >= 4) {
+		addButton.style.display = 'none';
+	}
 }
 
 function removeTowerLeg(button) {
 	button.closest('.tower-leg-item').remove();
-	updateAddButtonVisibility();
+	
+	// Show the "Add Tower Leg" button if we now have less than 4 legs
+	const container = document.getElementById('tower-legs-container');
+	const addButton = document.getElementById('add-tower-leg-btn');
+	const remainingLegs = container.querySelectorAll('.tower-leg-item');
+	
+	if (remainingLegs.length < 4) {
+		addButton.style.display = 'inline-block';
+	}
 }
 
 function updateAddButtonVisibility() {
 	const addButton = document.getElementById('add-tower-leg-btn');
 	const legItems = document.querySelectorAll('.tower-leg-item');
-
-	console.log('Current leg count:', legItems.length); // Debug log
-	console.log('Add button found:', addButton); // Debug log
 
 	if (!addButton) {
 		console.error('Add button not found!');
@@ -253,10 +270,8 @@ function updateAddButtonVisibility() {
 
 	if (legItems.length >= 4) {
 		addButton.style.display = 'none';
-		console.log('Hiding add button'); // Debug log
 	} else {
 		addButton.style.display = 'inline-block';
-		console.log('Showing add button'); // Debug log
 	}
 }
 </script>

@@ -46,11 +46,12 @@ use Illuminate\Routing\Controller as BaseController;
      *     @OA\Schema(
      *         schema="Tower",
      *         type="object",
-     *         required={"id", "project_id", "tower_name", "tower_type", "foundation_progress", "tower_erection_progress", "stringing_progress"},
+     *         required={"id", "project_id", "tower_name", "tower_type", "address", "foundation_progress", "tower_erection_progress", "stringing_progress"},
      *         @OA\Property(property="id", type="integer", example=1),
      *         @OA\Property(property="project_id", type="integer", example=1),
      *         @OA\Property(property="tower_name", type="string", example="Tower-001"),
      *         @OA\Property(property="tower_type", type="string", example="transmission"),
+     *         @OA\Property(property="address", type="string", example="123 Main Street, City, State", description="Tower address (empty string if not specified)"),
      *         @OA\Property(property="latitude", type="number", format="float", example=40.7128, nullable=true),
      *         @OA\Property(property="longitude", type="number", format="float", example=-74.0060, nullable=true),
      *         @OA\Property(property="foundation_progress", type="integer", example=85, description="Foundation progress percentage (0-100)"),
