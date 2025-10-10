@@ -78,6 +78,19 @@
 			</div>
 
 			<div class="row">
+				<div class="col-md-6">
+					<div class="mb-3">
+						<label for="tower_image" class="form-label">Tower Image</label>
+						<input type="file" name="tower_image" id="tower_image" class="form-control @error('tower_image') is-invalid @enderror" accept="image/*">
+						<div class="form-text">Upload an image of the tower (JPG, PNG, GIF - Max 5MB)</div>
+						@error('tower_image')
+							<div class="invalid-feedback">{{ $message }}</div>
+						@enderror
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
 				<div class="col-md-3">
 					<div class="mb-3">
 						<label for="latitude" class="form-label">Latitude</label>
