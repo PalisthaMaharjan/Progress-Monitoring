@@ -82,7 +82,7 @@
 							<td class="table-cell px-4 py-3">
 								<div class="d-flex align-items-center">
 									<div class="progress flex-grow-1 me-2" style="height: 8px;">
-										<div class="progress-bar bg-primary" role="progressbar" style="width: {{ $tower->foundation_progress }}%"></div>
+										<div class="progress-bar bg-[#006699]" role="progressbar" style="width: {{ $tower->foundation_progress }}%"></div>
 									</div>
 									<small class="text-muted">{{ $tower->foundation_progress }}%</small>
 								</div>

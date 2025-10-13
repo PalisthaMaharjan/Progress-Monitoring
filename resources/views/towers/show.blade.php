@@ -75,10 +75,10 @@
 				<div class="mb-3">
 					<div class="d-flex justify-content-between align-items-center mb-2">
 						<span><strong>Foundation</strong></span>
-						<span class="badge bg-primary">{{ $tower->foundation_progress }}%</span>
+						<span class="badge bg-[#006699]">{{ $tower->foundation_progress }}%</span>
 					</div>
 					<div class="progress" style="height: 20px;">
-						<div class="progress-bar bg-primary" role="progressbar" style="width: {{ $tower->foundation_progress }}%"></div>
+						<div class="progress-bar bg-[#006699]" role="progressbar" style="width: {{ $tower->foundation_progress }}%"></div>
 					</div>
 				</div>
 

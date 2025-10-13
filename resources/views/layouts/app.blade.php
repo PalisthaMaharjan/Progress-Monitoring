@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="color-scheme" content="light only">
 
         <title>@yield('title', config('app.name', 'Laravel'))</title>
 
@@ -14,24 +15,28 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-        <!-- Custom CSS -->
-        @vite(['resources/css/app.css'])
+        <!-- Custom CSS (no Vite) -->
+        <link rel="stylesheet" href="{{ asset('app.css') }}">
     </head>
     <body class="bg-light">
         <!-- Sticky Top Header -->
-        <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 header-navbar sticky-top">
+        <header class="navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 header-navbar sticky-top">
             <div class="container-fluid">
-                <div class="d-flex align-items-center gap-3">
+                <div class=" d-flex align-items-center gap-3">
                     <button class="btn btn-link text-dark p-1 sidebar-toggle" id="sidebarToggle" type="button">
                         <svg class="w-5 h-5" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="navbar-brand h1 mb-0 fw-bold text-dark !w-[10%]" style="object-fit: contain; width: 15%;">
+
+<div class="d-flex align-items-center gap-3">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="navbar-brand h1 mb-0 fw-bold text-dark !w-[10%]" style="object-fit: contain; width: 20%;">
+                    <div class="navbar-nav ms-auto">
+                        <span class="navbar-text text-dark">{{ date('M d, Y') }}</span>
+                    </div>
+                    </div>
                 </div>
-                <div class="navbar-nav ms-auto">
-                    <span class="navbar-text text-dark">{{ date('M d, Y') }}</span>
-                </div>
+
             </div>
         </header>
 
@@ -166,8 +171,7 @@
         <!-- Bootstrap JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-        <!-- Custom JavaScript -->
-        @vite(['resources/js/app.js'])
+        <!-- Custom JavaScript (no Vite) -->
 
         <!-- Page-specific scripts -->
         @stack('scripts')

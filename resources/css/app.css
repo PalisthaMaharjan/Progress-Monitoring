@@ -208,6 +208,273 @@
     border-top: 0px;
 }
 
+/* Completely disable dark mode - force light mode everywhere */
+@media (prefers-color-scheme: dark) {
+    /* Override all Bootstrap dark mode styles */
+    * {
+        color-scheme: light !important;
+    }
+
+    html {
+        color-scheme: light !important;
+    }
+
+    body {
+        background-color: #f8f9fa !important;
+        color: #212529 !important;
+        color-scheme: light !important;
+    }
+
+    /* Card components */
+    .card {
+        background-color: #ffffff !important;
+        border-color: #dee2e6 !important;
+        color: #212529 !important;
+    }
+
+    .card-body {
+        background-color: #ffffff !important;
+        color: #212529 !important;
+    }
+
+    .card-header {
+        background-color: #f8f9fa !important;
+        border-bottom-color: #dee2e6 !important;
+        color: #212529 !important;
+    }
+
+    .card-footer {
+        background-color: #f8f9fa !important;
+        border-top-color: #dee2e6 !important;
+        color: #212529 !important;
+    }
+
+    /* Background utilities */
+    .bg-light {
+        background-color: #f8f9fa !important;
+    }
+
+    .bg-white {
+        background-color: #ffffff !important;
+    }
+
+    .bg-dark {
+        background-color: #212529 !important;
+        color: #ffffff !important;
+    }
+
+    /* Text colors */
+    .text-dark {
+        color: #212529 !important;
+    }
+
+    .text-light {
+        color: #f8f9fa !important;
+    }
+
+    .text-muted {
+        color: #6c757d !important;
+    }
+
+    /* Form elements */
+    .form-control {
+        background-color: #ffffff !important;
+        border-color: #ced4da !important;
+        color: #212529 !important;
+    }
+
+    .form-control:focus {
+        background-color: #ffffff !important;
+        border-color: #80bdff !important;
+        color: #212529 !important;
+    }
+
+    .form-select {
+        background-color: #ffffff !important;
+        border-color: #ced4da !important;
+        color: #212529 !important;
+    }
+
+    /* Tables */
+    .table {
+        color: #212529 !important;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) > td,
+    .table-striped > tbody > tr:nth-of-type(odd) > th {
+        background-color: rgba(0, 0, 0, 0.05) !important;
+    }
+
+    /* Navigation */
+    .navbar {
+        background-color: #ffffff !important;
+        border-color: #dee2e6 !important;
+    }
+
+    .navbar-light {
+        background-color: #ffffff !important;
+    }
+
+    .navbar-dark {
+        background-color: #212529 !important;
+        color: #ffffff !important;
+    }
+
+    /* Buttons */
+    .btn-light {
+        background-color: #f8f9fa !important;
+        border-color: #f8f9fa !important;
+        color: #000000 !important;
+    }
+
+    .btn-outline-light {
+        color: #f8f9fa !important;
+        border-color: #f8f9fa !important;
+    }
+
+    /* Alerts */
+    .alert {
+        background-color: #d1ecf1 !important;
+        border-color: #bee5eb !important;
+        color: #0c5460 !important;
+    }
+
+    .alert-success {
+        background-color: #d4edda !important;
+        border-color: #c3e6cb !important;
+        color: #155724 !important;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da !important;
+        border-color: #f5c6cb !important;
+        color: #721c24 !important;
+    }
+
+    .alert-warning {
+        background-color: #fff3cd !important;
+        border-color: #ffeaa7 !important;
+        color: #856404 !important;
+    }
+
+    .alert-info {
+        background-color: #d1ecf1 !important;
+        border-color: #bee5eb !important;
+        color: #0c5460 !important;
+    }
+
+    /* Modals */
+    .modal-content {
+        background-color: #ffffff !important;
+        color: #212529 !important;
+    }
+
+    .modal-header {
+        background-color: #ffffff !important;
+        border-bottom-color: #dee2e6 !important;
+        color: #212529 !important;
+    }
+
+    .modal-footer {
+        background-color: #ffffff !important;
+        border-top-color: #dee2e6 !important;
+        color: #212529 !important;
+    }
+
+    /* Dropdowns */
+    .dropdown-menu {
+        background-color: #ffffff !important;
+        border-color: #dee2e6 !important;
+        color: #212529 !important;
+    }
+
+    .dropdown-item {
+        color: #212529 !important;
+    }
+
+    .dropdown-item:hover {
+        background-color: #f8f9fa !important;
+        color: #212529 !important;
+    }
+
+    /* List groups */
+    .list-group-item {
+        background-color: #ffffff !important;
+        border-color: #dee2e6 !important;
+        color: #212529 !important;
+    }
+
+    .list-group-item:hover {
+        background-color: #f8f9fa !important;
+    }
+
+    /* Pagination */
+    .page-link {
+        background-color: #ffffff !important;
+        border-color: #dee2e6 !important;
+        color: #006699 !important;
+    }
+
+    .page-link:hover {
+        background-color: #e9ecef !important;
+        border-color: #dee2e6 !important;
+        color: #0056b3 !important;
+    }
+
+    .page-item.active .page-link {
+        background-color: #006699 !important;
+        border-color: #006699 !important;
+        color: #ffffff !important;
+    }
+
+    /* Badges */
+    .badge {
+        color: #ffffff !important;
+    }
+
+    .badge-light {
+        background-color: #f8f9fa !important;
+        color: #212529 !important;
+    }
+
+    /* Progress bars */
+    .progress {
+        background-color: #e9ecef !important;
+    }
+
+    .progress-bar {
+        background-color: #006699 !important;
+        color: #ffffff !important;
+    }
+
+    /* Tooltips and popovers */
+    .tooltip {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+
+    .popover {
+        background-color: #ffffff !important;
+        border-color: #dee2e6 !important;
+        color: #212529 !important;
+    }
+
+    /* Custom alert cards */
+    .alert-card {
+        background-color: #ffffff !important;
+        border-color: rgba(0, 0, 0, 0.06) !important;
+        color: #111827 !important;
+    }
+
+    .alert-card .alert-title {
+        color: #111827 !important;
+    }
+
+    .alert-card .alert-text {
+        color: #4b5563 !important;
+    }
+}
+
 /* Mobile responsive - hide text on small screens */
 @media (max-width: 768px) {
     .sidebar .nav-link span {
