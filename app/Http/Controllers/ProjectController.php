@@ -35,7 +35,7 @@ class ProjectController extends Controller
             'sub_title' => ['required', 'string', 'max:255'],
             'project_id' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
-            'voltage' => ['required', 'numeric'],
+            'voltage' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'string', 'max:255'],
         ]);
 
@@ -70,7 +70,7 @@ class ProjectController extends Controller
             'sub_title' => ['required', 'string', 'max:255'],
             'project_id' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
-            'voltage' => ['required', 'numeric'],
+            'voltage' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'string', 'max:255'],
         ]);
 

@@ -56,12 +56,17 @@ class TowerController extends Controller
             'stringing_progress' => ['required', 'integer', 'min:0', 'max:100'],
             'problems' => ['nullable', 'string'],
             'legs' => ['nullable', 'array'],
-            'legs.*.leg_name' => ['required_with:legs', 'string'],
-            'legs.*.kitta_no' => ['required_with:legs', 'string'],
-            'legs.*.owner' => ['required_with:legs', 'string'],
-            'legs.*.amount' => ['required_with:legs', 'numeric', 'min:0'],
+            'legs.*.leg_name' => ['nullable', 'string'],
+            'legs.*.kitta_no' => ['nullable', 'string'],
+            'legs.*.owner' => ['nullable', 'string'],
+            'legs.*.amount' => ['nullable', 'numeric', 'min:0'],
             'legs.*.remarks' => ['nullable', 'string'],
         ]);
+
+        // Ensure address is an empty string if null (database column is NOT NULL)
+        if (!isset($validated['address']) || $validated['address'] === null) {
+            $validated['address'] = '';
+        }
 
         $tower = Tower::create($validated);
 
@@ -121,6 +126,11 @@ class TowerController extends Controller
             'legs.*.amount' => ['required_with:legs', 'numeric', 'min:0'],
             'legs.*.remarks' => ['nullable', 'string'],
         ]);
+
+        // Ensure address is an empty string if null (database column is NOT NULL)
+        if (!isset($validated['address']) || $validated['address'] === null) {
+            $validated['address'] = '';
+        }
 
         $tower->update($validated);
 

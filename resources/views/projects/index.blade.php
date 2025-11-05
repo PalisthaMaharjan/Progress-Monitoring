@@ -36,7 +36,7 @@
 							<td class="table-cell px-4 py-3">{{ $project->sub_title }}</td>
 							<td class="table-cell px-4 py-3">{{ $project->project_id }}</td>
 							<td class="table-cell px-4 py-3">{{ $project->location }}</td>
-							<td class="table-cell px-4 py-3">{{ $project->voltage }}</td>
+							<td class="table-cell px-4 py-3">{{ number_format($project->voltage, 0) }}</td>
 							<td class="table-cell px-4 py-3">{{ $project->status }}</td>
 							<td class="table-cell px-4 py-3">
 								<div class="d-flex gap-2">

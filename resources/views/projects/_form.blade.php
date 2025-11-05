@@ -75,9 +75,10 @@
 		</label>
 		<input
 			type="number"
-			step="0.01"
+			step="1"
+			min="0"
 			name="voltage"
-			value="{{ old('voltage', $project->voltage ?? '') }}"
+			value="{{ old('voltage', isset($project) && $project->voltage ? number_format($project->voltage, 0) : '') }}"
 			class="form-control input-field"
 			placeholder="Enter voltage value"
 			required

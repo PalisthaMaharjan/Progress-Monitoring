@@ -45,7 +45,7 @@
                 <div class="col-md-6">
                     <div class="p-3 bg-light rounded">
                         <strong class="text-dark">Voltage:</strong>
-                        <span class="ms-2 text-muted">{{ $project->voltage }}</span>
+                        <span class="ms-2 text-muted">{{ number_format($project->voltage, 0) }}</span>
                     </div>
                 </div>
                 <div class="col-md-6">

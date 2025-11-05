@@ -71,15 +71,17 @@
             <!-- Main Content Area -->
             <main class="flex-grow-1 overflow-auto p-4">
                 @if (session('success'))
-                    <div class="alert alert-dismissible fade show alert-card alert-card--success d-flex align-items-start justify-content-between gap-3 mb-3" role="alert">
-                        <div class="d-flex align-items-start">
-                            <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M9 12l2 2 4-4" />
+                    <div class="alert alert-dismissible fade show alert-card alert-card--success d-flex align-items-baseline justify-content-between gap-3 mb-3" role="alert" id="successAlert" style="background: #bee3be!important;">
+                        <div class="d-flex align-items-start flex-grow-1 gap-3">
+                            <div class="d-flex align-items-center gap-2">
+                            <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 24px; height: 24px; color: #16a34a;">
+                                <path d="M9 12l2 2 4-4" stroke="#16a34a" />
                                 <circle cx="12" cy="12" r="9" stroke="#16a34a"/>
                             </svg>
-                            <div>
+                            </div>
+                            <div class="flex-grow-1">
                                 <p class="alert-title mb-1">Success</p>
-                                <p class="alert-text">{{ session('success') }}</p>
+                                <p class="alert-text mb-0">{{ session('success') }}</p>
                             </div>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -87,15 +89,17 @@
                 @endif
 
                 @if (session('error'))
-                    <div class="alert alert-dismissible fade show alert-card alert-card--error d-flex align-items-start justify-content-between gap-3 mb-3" role="alert">
-                        <div class="d-flex align-items-start">
-                            <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M12 8v4m0 4h.01" />
+                    <div class="alert alert-dismissible fade show alert-card alert-card--error d-flex align-items-baseline justify-content-between gap-3 mb-3" role="alert" id="errorAlert">
+                        <div class="d-flex align-items-start flex-grow-1 gap-3">
+                            <div class="d-flex align-items-center gap-2">
+                            <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 24px; height: 24px; color: #dc2626;">
+                                <path d="M12 8v4m0 4h.01" stroke="#dc2626" />
                                 <circle cx="12" cy="12" r="9" stroke="#dc2626"/>
                             </svg>
-                            <div>
+                            </div>
+                            <div class="flex-grow-1">
                                 <p class="alert-title mb-1">Error</p>
-                                <p class="alert-text">{{ session('error') }}</p>
+                                <p class="alert-text mb-0">{{ session('error') }}</p>
                             </div>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -108,6 +112,24 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
+                // Auto-dismiss alerts after 5 seconds
+                const successAlert = document.getElementById('successAlert');
+                const errorAlert = document.getElementById('errorAlert');
+                
+                if (successAlert) {
+                    setTimeout(function() {
+                        const bsAlert = new bootstrap.Alert(successAlert);
+                        bsAlert.close();
+                    }, 50000);
+                }
+                
+                if (errorAlert) {
+                    setTimeout(function() {
+                        const bsAlert = new bootstrap.Alert(errorAlert);
+                        bsAlert.close();
+                    }, 50000);
+                }
+                
                 const sidebarLinks = document.querySelectorAll('.sidebar-link');
                 const mainContent = document.querySelector('main');
                 const sidebar = document.getElementById('sidebar');
