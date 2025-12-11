@@ -140,7 +140,7 @@
 								<td class="px-4 py-3"><strong>{{ $leg->leg_name }}</strong></td>
 								<td class="px-4 py-3">{{ $leg->kitta_no }}</td>
 								<td class="px-4 py-3">{{ $leg->owner }}</td>
-								<td class="px-4 py-3">₹{{ number_format($leg->amount, 2) }}</td>
+								<td class="px-4 py-3">{{ number_format($leg->amount, 0) }}</td>
 								<td class="px-4 py-3">
 									@if($leg->remarks)
 										<span class="badge bg-{{ $leg->remarks == 'Completed' ? 'success' : ($leg->remarks == 'In Progress' ? 'warning' : 'secondary') }}">

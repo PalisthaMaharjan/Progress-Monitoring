@@ -73,9 +73,14 @@ class TowerController extends Controller
         // Create tower legs if provided
         if ($request->has('legs') && is_array($request->legs)) {
             foreach ($request->legs as $legData) {
-                if (!empty($legData['leg_name'])) {
-                    $tower->legs()->create($legData);
-                }
+                // All fields are optional, create leg with provided data
+                $tower->legs()->create([
+                    'leg_name' => $legData['leg_name'] ?? null,
+                    'kitta_no' => $legData['kitta_no'] ?? null,
+                    'owner' => $legData['owner'] ?? null,
+                    'amount' => $legData['amount'] ?? null,
+                    'remarks' => $legData['remarks'] ?? null,
+                ]);
             }
         }
 
@@ -120,10 +125,10 @@ class TowerController extends Controller
             'problems' => ['nullable', 'string'],
             'legs' => ['nullable', 'array'],
             'legs.*.id' => ['nullable', 'exists:tower_legs,id'],
-            'legs.*.leg_name' => ['required_with:legs', 'string'],
-            'legs.*.kitta_no' => ['required_with:legs', 'string'],
-            'legs.*.owner' => ['required_with:legs', 'string'],
-            'legs.*.amount' => ['required_with:legs', 'numeric', 'min:0'],
+            'legs.*.leg_name' => ['nullable', 'string'],
+            'legs.*.kitta_no' => ['nullable', 'string'],
+            'legs.*.owner' => ['nullable', 'string'],
+            'legs.*.amount' => ['nullable', 'numeric', 'min:0'],
             'legs.*.remarks' => ['nullable', 'string'],
         ]);
 
@@ -142,12 +147,19 @@ class TowerController extends Controller
 
             // Update or create legs
             foreach ($request->legs as $legData) {
-                if (!empty($legData['leg_name'])) {
-                    if (isset($legData['id']) && $legData['id']) {
-                        $tower->legs()->where('id', $legData['id'])->update($legData);
-                    } else {
-                        $tower->legs()->create($legData);
-                    }
+                // All fields are optional
+                $legDataToSave = [
+                    'leg_name' => $legData['leg_name'] ?? null,
+                    'kitta_no' => $legData['kitta_no'] ?? null,
+                    'owner' => $legData['owner'] ?? null,
+                    'amount' => $legData['amount'] ?? null,
+                    'remarks' => $legData['remarks'] ?? null,
+                ];
+                
+                if (isset($legData['id']) && $legData['id']) {
+                    $tower->legs()->where('id', $legData['id'])->update($legDataToSave);
+                } else {
+                    $tower->legs()->create($legDataToSave);
                 }
             }
         }
