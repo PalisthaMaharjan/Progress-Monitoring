@@ -76,9 +76,40 @@
 </div>
 
 @if($projects->hasPages())
-	<div class="mt-4">
-		{{ $projects->links() }}
+	<div class="mt-4 d-flex justify-content-between align-items-center">
+		<div class="text-muted">
+			Showing {{ $projects->firstItem() }} to {{ $projects->lastItem() }} of {{ $projects->total() }} results
+		</div>
+		<div class="d-flex gap-2">
+			@if($projects->onFirstPage())
+				<button type="button" class="btn btn-outline-secondary" disabled>
+					« Previous
+				</button>
+			@else
+				<a href="{{ $projects->previousPageUrl() }}" class="btn btn-outline-secondary">
+					« Previous
+				</a>
+			@endif
+			
+			@if($projects->hasMorePages())
+				<a href="{{ $projects->nextPageUrl() }}" class="btn btn-primary">
+					Next »
+				</a>
+			@else
+				<button type="button" class="btn btn-primary" disabled>
+					Next »
+				</button>
+			@endif
+		</div>
 	</div>
+@else
+	@if($projects->total() > 0)
+		<div class="mt-4 d-flex justify-content-between align-items-center">
+			<div class="text-muted">
+				Showing {{ $projects->firstItem() }} to {{ $projects->lastItem() }} of {{ $projects->total() }} results
+			</div>
+		</div>
+	@endif
 @endif
 
 <!-- Delete Confirmation Modal -->

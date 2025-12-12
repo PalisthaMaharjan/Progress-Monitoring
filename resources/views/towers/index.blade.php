@@ -143,9 +143,40 @@
 </div>
 
 @if($towers->hasPages())
-	<div class="mt-4">
-		{{ $towers->links() }}
+	<div class="mt-4 d-flex justify-content-between align-items-center">
+		<div class="text-muted">
+			Showing {{ $towers->firstItem() }} to {{ $towers->lastItem() }} of {{ $towers->total() }} results
+		</div>
+		<div class="d-flex gap-2">
+			@if($towers->onFirstPage())
+				<button type="button" class="btn btn-outline-secondary" disabled>
+					« Previous
+				</button>
+			@else
+				<a href="{{ $towers->previousPageUrl() }}" class="btn btn-outline-secondary">
+					« Previous
+				</a>
+			@endif
+			
+			@if($towers->hasMorePages())
+				<a href="{{ $towers->nextPageUrl() }}" class="btn btn-primary">
+					Next »
+				</a>
+			@else
+				<button type="button" class="btn btn-primary" disabled>
+					Next »
+				</button>
+			@endif
+		</div>
 	</div>
+@else
+	@if($towers->total() > 0)
+		<div class="mt-4 d-flex justify-content-between align-items-center">
+			<div class="text-muted">
+				Showing {{ $towers->firstItem() }} to {{ $towers->lastItem() }} of {{ $towers->total() }} results
+			</div>
+		</div>
+	@endif
 @endif
 
 <!-- Delete Tower Confirmation Modal -->
